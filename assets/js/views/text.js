@@ -7,7 +7,7 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 	oneApp.TextView = oneApp.SectionView.extend({
 		events: function() {
 			return _.extend({}, oneApp.SectionView.prototype.events, {
-				'change .make_pb-text-columns' : 'handleColumns'
+				'change .maera_pb-text-columns' : 'handleColumns'
 			});
 		},
 
@@ -15,26 +15,26 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 			evt.preventDefault();
 
 			var columns = $(evt.target).val(),
-				$stage = $('.make_pb-text-columns-stage', this.$el);
+				$stage = $('.maera_pb-text-columns-stage', this.$el);
 
-			$stage.removeClass('make_pb-text-columns-1 make_pb-text-columns-2 make_pb-text-columns-3 make_pb-text-columns-4');
-			$stage.addClass('make_pb-text-columns-' + parseInt(columns, 10));
+			$stage.removeClass('maera_pb-text-columns-1 maera_pb-text-columns-2 maera_pb-text-columns-3 maera_pb-text-columns-4');
+			$stage.addClass('maera_pb-text-columns-' + parseInt(columns, 10));
 		}
 	});
 
-	// Makes gallery items sortable
+	// Maeras gallery items sortable
 	oneApp.initializeTextColumnSortables = function(view) {
 		var $selector;
 		view = view || '';
 
 		if (view.$el) {
-			$selector = $('.make_pb-text-columns-stage', view.$el);
+			$selector = $('.maera_pb-text-columns-stage', view.$el);
 		} else {
-			$selector = $('.make_pb-text-columns-stage');
+			$selector = $('.maera_pb-text-columns-stage');
 		}
 
 		$selector.sortable({
-			handle: '.make_pb-sortable-handle',
+			handle: '.maera_pb-sortable-handle',
 			placeholder: 'sortable-placeholder',
 			forcePlaceholderSizeType: true,
 			distance: 2,
@@ -43,20 +43,20 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 			start: function (event, ui) {
 				// Set the height of the placeholder to that of the sorted item
 				var $item = $(ui.item.get(0)),
-					$stage = $item.parents('.make_pb-text-columns-stage'),
+					$stage = $item.parents('.maera_pb-text-columns-stage'),
 					addClass = '';
 
 				// If text item, potentially add class to stage
-				if ($item.hasClass('make_pb-text-column')) {
-					if ($item.hasClass('make_pb-column-width-two-thirds')) {
+				if ($item.hasClass('maera_pb-text-column')) {
+					if ($item.hasClass('maera_pb-column-width-two-thirds')) {
 						addClass = 'current-item-two-thirds';
-					} else if ($item.hasClass('make_pb-column-width-one-third')) {
+					} else if ($item.hasClass('maera_pb-column-width-one-third')) {
 						addClass = 'current-item-one-third';
-					} else if ($item.hasClass('make_pb-column-width-one-fourth')) {
+					} else if ($item.hasClass('maera_pb-column-width-one-fourth')) {
 						addClass = 'current-item-one-fourth';
-					} else if ($item.hasClass('make_pb-column-width-three-fourths')) {
+					} else if ($item.hasClass('maera_pb-column-width-three-fourths')) {
 						addClass = 'current-item-three-fourths';
-					} else if ($item.hasClass('make_pb-column-width-one-half')) {
+					} else if ($item.hasClass('maera_pb-column-width-one-half')) {
 						addClass = 'current-item-one-half';
 					}
 
@@ -72,10 +72,10 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 			},
 			stop: function (event, ui) {
 				var $item = $(ui.item.get(0)),
-					$section = $item.parents('.make_pb-section'),
-					$stage = $('.make_pb-section-body', $section),
-					$columnsStage = $item.parents('.make_pb-text-columns-stage'),
-					$orderInput = $('.make_pb-text-columns-order', $stage),
+					$section = $item.parents('.maera_pb-section'),
+					$stage = $('.maera_pb-section-body', $section),
+					$columnsStage = $item.parents('.maera_pb-text-columns-stage'),
+					$orderInput = $('.maera_pb-text-columns-order', $stage),
 					id = $section.attr('data-id'),
 					column = $item.attr('data-id'),
 					i;
@@ -84,10 +84,10 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 
 				// Label the columns according to the position they are in
 				i = 1;
-				$('.make_pb-text-column', $stage).each(function(){
+				$('.maera_pb-text-column', $stage).each(function(){
 					$(this)
-						.removeClass('make_pb-text-column-position-1 make_pb-text-column-position-2 make_pb-text-column-position-3 make_pb-text-column-position-4')
-						.addClass('make_pb-text-column-position-' + i);
+						.removeClass('maera_pb-text-column-position-1 maera_pb-text-column-position-2 maera_pb-text-column-position-3 maera_pb-text-column-position-4')
+						.addClass('maera_pb-text-column-position-' + i);
 					i++;
 				});
 
@@ -113,7 +113,7 @@ var oneApp = oneApp || {}, $oneApp = $oneApp || jQuery(oneApp);
 
 			$.each($frames, function() {
 				$this = $(this);
-				id = $this.attr('id').replace('make_pb-iframe-', '');
+				id = $this.attr('id').replace('maera_pb-iframe-', '');
 				oneApp.initFrame(id, link);
 			});
 		}

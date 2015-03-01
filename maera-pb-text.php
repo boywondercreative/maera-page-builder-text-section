@@ -3,7 +3,7 @@
 Plugin Name: Maera Page Builder - Text section
 */
 
-class Make_PB_Section_Text {
+class Maera_PB_Section_Text {
 
 	private static $instance;
 
@@ -30,9 +30,9 @@ class Make_PB_Section_Text {
 
 	public function admin_enqueue_scripts() {
 
-		wp_enqueue_style( 'make_pb_text_section', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', array(), $this->version );
-		wp_register_script( 'make_pb-sections/js/views/text.js', plugin_dir_url( __FILE__ ) . '/assets/js/views/text.js', array(), $this->version, true );
-		add_filter( 'make_pb_builder_js_dependencies', array( $this, 'add_js_dependencies' ) );
+		wp_enqueue_style( 'maera_pb_text_section', plugin_dir_url( __FILE__ ) . '/assets/css/style.css', array(), $this->version );
+		wp_register_script( 'maera_pb-sections/js/views/text.js', plugin_dir_url( __FILE__ ) . '/assets/js/views/text.js', array(), $this->version, true );
+		add_filter( 'maera_pb_builder_js_dependencies', array( $this, 'add_js_dependencies' ) );
 
 	}
 
@@ -43,7 +43,7 @@ class Make_PB_Section_Text {
 		}
 
 		return array_merge( $deps, array(
-			'make_pb-sections/js/views/text.js',
+			'maera_pb-sections/js/views/text.js',
 		) );
 
 	}
@@ -60,11 +60,11 @@ class Make_PB_Section_Text {
 	 * @return void
 	 */
 	public function register_text_section() {
-		Make_PB()->sections->add_section(
+		Maera_PB()->sections->add_section(
 			'text',
-			_x( 'Columns', 'section name', 'make' ),
+			_x( 'Columns', 'section name', 'maera' ),
 			plugin_dir_url( __FILE__ ) . '/assets/img/icon.png',
-			__( 'Create rearrangeable columns of content and images.', 'make' ),
+			__( 'Create rearrangeable columns of content and images.', 'maera' ),
 			array( $this, 'save_text' ),
 			'template-admin',
 			'template-front',
@@ -74,14 +74,14 @@ class Make_PB_Section_Text {
 				100 => array(
 					'type'  => 'section_title',
 					'name'  => 'title',
-					'label' => __( 'Enter section title', 'make' ),
-					'class' => 'make_pb-configuration-title make_pb-section-header-title-input',
+					'label' => __( 'Enter section title', 'maera' ),
+					'class' => 'maera_pb-configuration-title maera_pb-section-header-title-input',
 				),
 				200 => array(
 					'type'    => 'select',
 					'name'    => 'columns-number',
-					'class'   => 'make_pb-text-columns',
-					'label'   => __( 'Columns', 'make' ),
+					'class'   => 'maera_pb-text-columns',
+					'label'   => __( 'Columns', 'maera' ),
 					'default' => 3,
 					'options' => array(
 						1 => 1,
@@ -114,7 +114,7 @@ class Make_PB_Section_Text {
 		$clean_data['title'] = $clean_data['label'] = ( isset( $data['title'] ) ) ? apply_filters( 'title_save_pre', $data['title'] ) : '';
 
 		if ( isset( $data['columns-order'] ) ) {
-			$clean_data['columns-order'] = array_map( array( 'Make_PB_Save', 'clean_section_id' ), explode( ',', $data['columns-order'] ) );
+			$clean_data['columns-order'] = array_map( array( 'Maera_PB_Save', 'clean_section_id' ), explode( ',', $data['columns-order'] ) );
 		}
 
 		if ( isset( $data['columns'] ) && is_array( $data['columns'] ) ) {
@@ -128,7 +128,7 @@ class Make_PB_Section_Text {
 				}
 
 				if ( isset( $item['image-id'] ) ) {
-					$clean_data['columns'][ $id ]['image-id'] = make_pb_sanitize_image_id( $item['image-id'] );
+					$clean_data['columns'][ $id ]['image-id'] = maera_pb_sanitize_image_id( $item['image-id'] );
 				}
 
 				if ( isset( $item['content'] ) ) {
@@ -142,11 +142,11 @@ class Make_PB_Section_Text {
 
 }
 
-function make_pb_get_section_definition_text() {
-	return Make_PB_Section_Text::instance();
+function maera_pb_get_section_definition_text() {
+	return Maera_PB_Section_Text::instance();
 }
 
 // Kick off the section definitions immediately
 if ( is_admin() ) {
-	add_action( 'after_setup_theme', 'make_pb_get_section_definition_text', 11 );
+	add_action( 'after_setup_theme', 'maera_pb_get_section_definition_text', 11 );
 }
